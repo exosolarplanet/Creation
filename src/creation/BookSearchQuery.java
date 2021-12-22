@@ -1,6 +1,7 @@
 package creation;
 
 import creation.catalogues.BritishLibraryCatalogue;
+import creation.catalogues.OfficeLibraryCatalogue;
 
 import java.util.List;
 
@@ -11,14 +12,17 @@ public class BookSearchQuery {
   private final String title;
   private final Integer date1;
   private final Integer date2;
+  private final OfficeLibraryCatalogue catalogue;
 
-  public BookSearchQuery(String p1, String p2, String p3, Integer p4, Integer p5) {
+  public BookSearchQuery(String p1, String p2, String p3, Integer p4, Integer p5, OfficeLibraryCatalogue catalogue) {
     this.name1 = p1;
     this.name2 = p2;
     this.title = p3;
     this.date1 = p4;
     this.date2 = p5;
+    this.catalogue = catalogue;
   }
+
 
   public List<Book> execute() {
     StringBuffer query = new StringBuffer();
@@ -37,6 +41,6 @@ public class BookSearchQuery {
     if (date2 != null) {
       query.append("PUBLISHEDBEFORE(").append(date2).append(") ");
     }
-    return new BritishLibraryCatalogue().searchFor(query.toString());
+    return catalogue.searchFor(query.toString());
   }
 }
